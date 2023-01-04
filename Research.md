@@ -1,1 +1,2 @@
-asdgfasDgv
+# The Matrix Library
+For starters, the matrix library included in this repository contains vital methods for the neural network library to work. This is not a professional neural network library and it's purpose was to create some incite on the world of Artificial Intelligence using C++. I created this library so I could learn programming techniques and syntax which I could use to further my skills with the language. This library uses lambda functions, vectors, functional pointers, and other complex techniques to achieve the concept of a neural network
