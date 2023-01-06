@@ -31,7 +31,7 @@ public:
     this->biasHidden.randomize();
     this->biasOutput.randomize();
 
-    this->learning_rate = 10;
+    this->learning_rate = 10.0;
     }
 
 	std::vector<double> feedforward(std::vector<double> value) {
