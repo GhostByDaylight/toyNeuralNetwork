@@ -15,7 +15,9 @@ The map function takes a function as a parameter and applies that function to ev
 
 ### The Neural Network library
 
+In the neural network library, it contains the aspects of how a neural network learns and adapts to problems. The train function is a function which goes through the feed forward algorithm and back propagation to improve how the network (for lack of a better word) thinks. When you call the feedforward function by it self, it returns a vector with the current outputs. The example main.cpp files trains the neural network using a for loop to run N times then calls the feedforward function. 
 
+###
 
 
 
