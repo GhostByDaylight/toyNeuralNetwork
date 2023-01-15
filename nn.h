@@ -36,22 +36,12 @@ public:
   std::vector<double> feedforward(std::vector<double> value) {
 
     Matrix inputs = Matrix::fromArray(value);
-    // inputs.disp();
-    // this->weights_ih.disp();
     Matrix hidden = Matrix::multiply(this->weights_ih, inputs);
-    // hidden.disp();
     hidden.add(this->biasHidden);
-    // this->biasHidden.disp();
-    //  hidden.disp();
     hidden.map([this](double x) { return this->sigmoid(x); });
-    //  hidden.disp();
-    // this->weights_ho.disp();
     Matrix output = Matrix::multiply(this->weights_ho, hidden);
-    //  output.disp();
     output.add(this->biasOutput);
-    // this->biasOutput.disp();
     output.map([this](double x) { return this->sigmoid(x); });
-    //  output.disp();
 
     return output.toArray();
   }
@@ -59,8 +49,6 @@ public:
   void train(std::vector<double> inputs, std::vector<double> answers) {
 
     Matrix inputMatrix = Matrix::fromArray(inputs);
-    // std::cout << "input Matrix" << std::endl;
-    // inputMatrix.disp();
 
     Matrix hidden = Matrix::multiply(this->weights_ih, inputMatrix);
     hidden.add(this->biasHidden);
@@ -89,49 +77,26 @@ public:
 
     // Calculate the hidden layer errors
     Matrix weights_hiddenOutput_transposed = Matrix::transpose(this->weights_ho);
-    // std::cout << "weights_hiddenOutput_transposed" << std::endl;
-    // weights_hiddenOutput_transposed.disp();
-    // output_errors.disp();
 
     Matrix hidden_errors = Matrix::multiply(weights_hiddenOutput_transposed, output_errors);
-    // std::cout << "hidden_errors" << std::endl;
-    // hidden_errors.disp();
 
-    // Calculate the hidden gradient
-    // std::cout << "Checking matrices" << std::endl;
-    // hidden.disp();
-    // hidden_errors.disp();
     Matrix hidden_gradient = Matrix::map(hidden, [this](double x) { return this->dsigmoid(x); });
-    // std::cout << "hidden_gradient" << std::endl;
-    // hidden_gradient.disp();
+
 
     hidden_gradient.multiply(hidden_errors);
-    // std::cout << "Hidden gradient after multiplying by the hidden errors and
-    // the learning rate " << std::endl; hidden_gradient.disp();
 
-    // std::cout << "hidden_gradient after multplying by the hidden errors" <<
-    // std::endl; hidden_gradient.disp();
 
     hidden_gradient.multiply(this->learning_rate);
-    // hidden_gradient.disp();
+
 
     // Calculate the input->hidden deltas
     Matrix inputs_T = Matrix::transpose(inputMatrix);
 
-    // inputs_T.disp();
-    // hidden_gradient.disp();
     Matrix weights_inputHidden_deltas =
-        Matrix::multiply(hidden_gradient, inputs_T);
-    // std::cout << "weights_inputHidden_deltas" << std::endl;
-    // weights_inputHidden_deltas.disp();
+    Matrix::multiply(hidden_gradient, inputs_T);
+
 
     this->weights_ih.add(weights_inputHidden_deltas);
-    // weights_inputHidden_deltas.disp();
-    // std::cout << "this->weights_ih" << std::endl;
-    // this->weights_ih.disp();
     this->biasHidden.add(hidden_gradient);
-    // hidden_gradient.disp();
-    // std::cout << "this->biasHidden" << std::endl;
-    // this->biasHidden.disp();
   }
 };
